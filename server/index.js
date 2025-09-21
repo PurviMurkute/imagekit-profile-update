@@ -27,10 +27,31 @@ app.get('/health', (req, res) => {
 app.get('/auth', (req, res) => {
     const result = imagekit.getAuthenticationParameters();
 
+    console.log(result);
+
     return res.status(200).json({
         success: true,
         data: result,
         message: "success"
+    })
+    
+})
+
+app.post('/profile', async (req, res) => {
+    const { imageUrl } = req.body;
+
+    if(!imageUrl){
+        return res.status(400).json({
+            success: false,
+            data: {},
+            message: "image url is required"
+        })
+    }
+
+    return res.status(201).json({
+        success: true,
+        data: imageUrl,
+        message: "image uploaded successfully"
     })
 })
 
